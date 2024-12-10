@@ -144,9 +144,12 @@ class MetadataLinks:
                     band_dict_list = [band_dict_list[1]]
                 else:
                     pass
-                asset_location = self.read_href(
-                    f".//dataObject[@ID='{asset_key}']//fileLocation"
-                )
+                try:
+                    asset_location = self.read_href(
+                        f".//dataObject[@ID='{asset_key}']//fileLocation"
+                    )
+                except RuntimeError:
+                    continue
                 asset_href = os.path.join(self.granule_href, asset_location)
                 media_type = manifest.find_attr(
                     "mimeType", f".//dataObject[@ID='{asset_key}']//byteStream"
@@ -191,9 +194,12 @@ class MetadataLinks:
                             "band_width": instrument_bands[band].full_width_half_max,
                         }
                         band_dict_list.append(band_dict)
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(self.granule_href, asset_location)
                     media_type = manifest.find_attr(
                         "mimeType", f".//dataObject[@ID='{asset_key}']//byteStream"
@@ -265,9 +271,12 @@ class MetadataLinks:
                             band_dict_list.append(band_dict)
                     else:
                         band_dict_list = []
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
@@ -347,9 +356,12 @@ class MetadataLinks:
                             band_dict_list.append(band_dict)
                     else:
                         band_dict_list = []
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
@@ -415,9 +427,12 @@ class MetadataLinks:
                         band_dict_list.append(band_dict)
                     else:
                         band_dict_list = []
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(self.granule_href, asset_location)
                     media_type = manifest.find_attr(
                         "mimeType", f".//dataObject[@ID='{asset_key}']//byteStream"
@@ -470,9 +485,12 @@ class MetadataLinks:
                         "center_wavelength": instrument_bands[band].center_wavelength,
                         "band_width": instrument_bands[band].full_width_half_max,
                     }
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
@@ -511,9 +529,12 @@ class MetadataLinks:
                         band_key_list = ["Oa10", "Oa17"]
                     else:
                         band_key_list = []
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
@@ -608,9 +629,12 @@ class MetadataLinks:
                         band_key_list = []
                     else:
                         band_key_list = [asset_key[:4]]
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
@@ -665,9 +689,12 @@ class MetadataLinks:
                         "center_wavelength": instrument_bands[band].center_wavelength,
                         "band_width": instrument_bands[band].full_width_half_max,
                     }
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
@@ -697,9 +724,14 @@ class MetadataLinks:
                         band_key_list = ["S05", "S06", "S07", "S10"]
                     else:
                         band_key_list = []
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
+
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
@@ -752,9 +784,12 @@ class MetadataLinks:
                         band_key_list = ["S08", "S09"]
                     else:
                         band_key_list = []
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
@@ -816,9 +851,12 @@ class MetadataLinks:
                             "band_width": instrument_bands[band].full_width_half_max,
                         }
                         band_dict_list.append(band_dict)
-                    asset_location = self.read_href(
-                        f".//dataObject[@ID='{asset_key}']//fileLocation"
-                    )
+                    try:
+                        asset_location = self.read_href(
+                            f".//dataObject[@ID='{asset_key}']//fileLocation"
+                        )
+                    except RuntimeError:
+                        continue
                     asset_href = os.path.join(
                         self.granule_href, strip_prefix("./", asset_location)
                     )
