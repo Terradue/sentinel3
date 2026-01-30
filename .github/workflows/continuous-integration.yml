@@ -7,21 +7,6 @@ on:
   pull_request:
 
 jobs:
-  codecov:
-    name: codecov
-    runs-on: ubuntu-latest
-    env:
-      DOCKER_BUILDKIT: true
-    steps:
-      - uses: actions/checkout@v2
-      - name: Execute linters and test suites
-        run: ./docker/cibuild
-      - name: Upload All coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          fail_ci_if_error: false
   python-matrix:
     name: python-matrix
     runs-on: ubuntu-latest
@@ -32,15 +17,15 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - name: Set up conda cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/conda_pkgs_dir
           key: ${{ runner.os }}-conda-${{ hashFiles('**/environment.yml') }}
           restore-keys: ${{ runner.os }}-conda-
       - name: Set up pip cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.cfg', '**/requirements-dev.txt') }}
