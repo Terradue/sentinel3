@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 
 import antimeridian
 import pystac
-from .product_extension import PRODUCT_EXTENSION_HOOKS 
+from .product import PRODUCT_EXTENSION_HOOKS 
 
 pystac.extensions.hooks.register_extension(PRODUCT_EXTENSION_HOOKS)
 
