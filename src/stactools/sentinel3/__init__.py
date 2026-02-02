@@ -15,7 +15,3 @@ def register_plugin(registry):
 
 __version__ = "0.4.1"
 
-import pystac
-from .product_extension import PRODUCT_EXTENSION_HOOKS 
-
-pystac.extensions.hooks.register_extension(PRODUCT_EXTENSION_HOOKS)

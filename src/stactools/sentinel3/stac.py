@@ -5,7 +5,10 @@ from decimal import Decimal
 from typing import Any, Dict, List, Optional
 
 import antimeridian
-#import pystac -> done in __init__
+import pystac
+from .product_extension import PRODUCT_EXTENSION_HOOKS 
+
+pystac.extensions.hooks.register_extension(PRODUCT_EXTENSION_HOOKS)
 
 import shapely.geometry
 from pystac.extensions.eo import EOExtension
