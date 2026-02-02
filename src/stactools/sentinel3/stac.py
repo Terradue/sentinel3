@@ -153,6 +153,11 @@ def get_array_shape(
     return s3shape
 
 
+SEN3_TIMELINESS_MAP = {
+    "NR":  "PT3H",    # Near Real-Time
+    "ST":  "PT48H",   # Short Time-Critical
+    "NT":  "P1M",     # Non Time-Critical
+}
 def create_item(
     granule_href: str,
     skip_nc: bool = False,
