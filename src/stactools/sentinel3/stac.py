@@ -5,7 +5,8 @@ from decimal import Decimal
 from typing import Any, Dict, List, Optional
 
 import antimeridian
-import pystac
+#import pystac -> done in __init__
+
 import shapely.geometry
 from pystac.extensions.eo import EOExtension
 from pystac.extensions.sat import SatExtension
@@ -238,6 +239,26 @@ def create_item(
     )
     item.properties["end_datetime"] = pystac.utils.datetime_to_str(
         pystac.utils.str_to_datetime(item.properties["end_datetime"])
+    )
+
+    timeliness_cat = (sen3naming.group("timeliness") or "").strip().upper()  # e.g. NR / ST / NT
+    #item.properties["s3:processing_timeliness"] = timeliness_cat
+    #item.properties["product:timeliness_category"] = timeliness_cat
+    timeliness="PT0S"
+    if timeliness_cat in SEN3_TIMELINESS_MAP:
+        timeliness = SEN3_TIMELINESS_MAP[timeliness_cat]
+    else:
+        logger.warning(
+            f"Unknown timeliness category '{timeliness_cat}' for item {item.id}"
+        )
+    
+    from .product_extension import ProductExtension, AcquisitionType
+    prod = ProductExtension.ext(item, add_if_missing=True)
+    prod.apply(
+        product_type=item.properties.get("s3:product_name"),  
+        timeliness=timeliness,                     
+        timeliness_category=timeliness_cat,         
+        acquisition_type=AcquisitionType.NOMINAL,
     )
 
     # Remove s3:mode, which is always set to EO (Earth # Observation). It
