@@ -260,7 +260,8 @@ def create_item(
             f"Unknown timeliness category '{timeliness_cat}' for item {item.id}"
         )
     
-    from .product_extension import ProductExtension, AcquisitionType
+    #from pystac.extensions.product import PRODUCT_EXTENSION_HOOKS 
+    from pystac.extensions.product import ProductExtension, AcquisitionType
     prod = ProductExtension.ext(item, add_if_missing=True)
     prod.apply(
         product_type=item.properties.get("s3:product_name"),  
