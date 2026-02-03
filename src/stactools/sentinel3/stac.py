@@ -6,9 +6,6 @@ from typing import Any, Dict, List, Optional
 
 import antimeridian
 import pystac
-from pystac.extensions.product import PRODUCT_EXTENSION_HOOKS 
-
-pystac.extensions.hooks.register_extension(PRODUCT_EXTENSION_HOOKS)
 
 import shapely.geometry
 from pystac.extensions.eo import EOExtension
@@ -249,6 +246,7 @@ def create_item(
         pystac.utils.str_to_datetime(item.properties["end_datetime"])
     )
 
+
     timeliness_cat = (sen3naming.group("timeliness") or "").strip().upper()  # e.g. NR / ST / NT
     #item.properties["s3:processing_timeliness"] = timeliness_cat
     #item.properties["product:timeliness_category"] = timeliness_cat
@@ -259,7 +257,7 @@ def create_item(
         logger.warning(
             f"Unknown timeliness category '{timeliness_cat}' for item {item.id}"
         )
-    
+        
     #from pystac.extensions.product import PRODUCT_EXTENSION_HOOKS 
     from pystac.extensions.product import ProductExtension, AcquisitionType
     prod = ProductExtension.ext(item, add_if_missing=True)
